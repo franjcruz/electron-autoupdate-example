@@ -1,24 +1,30 @@
 <html>
-
-<head>
+  <head>
     <title>Electron AutoUpdater</title>
-</head>
+  </head>
 
-<body>
-    <script>
-        const ipcRenderer = require('electron').ipcRenderer;
-
-        // wait for an updateReady message
-        ipcRenderer.on('updateReady', function(event, text) {
-            // changes the text of the button
-            var container = document.getElementById('ready');
-            container.innerHTML = "new version ready!";
-        })
-    </script>
-    Version: <span id="version">v0.1.10</span>
+  <body>
+    Version: <span id="version"></span>
     <!-- the button onClick sends a quitAndInstall message to the electron main process -->
-    <button id="ready" onClick="ipcRenderer.send('quitAndInstall')">no updates ready</button>
+    <button id="ready" onClick="ipcRenderer.send('quitAndInstall')">
+      no updates ready
+    </button>
+    <button id="ready" onClick="ipcRenderer.send('checkForUpdates')">
+      check for updates
+    </button>
+  </body>
+  <script>
+    const appVersion = require('./package.json').version;
+    document.getElementById('version').innerHTML = appVersion;
 
-</body>
+    const ipcRenderer = require('electron').ipcRenderer;
+    // wait for an updateReady message
+    ipcRenderer.on('updateReady', function(event, text) {
+      // changes the text of the button
+      console.log('updateReady!!!');
+      document.getElementById('ready').innerHTML = 'new version ready!';
 
+      ipcRenderer.send('quitAndInstall');
+    });
+  </script>
 </html>

@@ -1,6 +1,6 @@
 {
   "name": "electronautoupdate",
-  "version": "0.1.11",
+  "version": "0.1.26",
   "description": "An example of an autoupdating electron app",
   "repository": "https://github.com/franjcruz/electron-autoupdate-example",
   "main": "electron.js",
@@ -14,6 +14,7 @@
   },
   "scripts": {
     "build": "build",
+    "start": "electron .",
     "ship": "build -p always"
   },
   "devDependencies": {

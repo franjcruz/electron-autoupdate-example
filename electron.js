@@ -1,22 +1,31 @@
-const {app, BrowserWindow, ipcMain} = require('electron');
-const {autoUpdater} = require("electron-updater");
+const { app, BrowserWindow, ipcMain } = require('electron');
+const { autoUpdater } = require('electron-updater');
 let win; // this wills store the window object
 
 function createDefaultWindow() {
-    win = new BrowserWindow({width: 900, height: 680});
-    win.loadURL(`file://${__dirname}/index.html`);
-    win.on('closed', () => app.quit());
+  win = new BrowserWindow({ width: 900, height: 680 });
+  win.loadURL(`file://${__dirname}/index.html`);
+  win.on('closed', () => app.quit());
+
+  win.webContents.openDevTools();
+
   return win;
 }
 
 // when the update is ready, notify the BrowserWindow
-autoUpdater.on('update-downloaded', (info) => {
-    win.webContents.send('updateReady')
+autoUpdater.on('update-downloaded', info => {
+  win.webContents.send('updateReady');
 });
+
 app.on('ready', function() {
   createDefaultWindow();
   autoUpdater.checkForUpdates();
 });
-ipcMain.on("quitAndInstall", (event, arg) => {
-    autoUpdater.quitAndInstall();
-})
+
+ipcMain.on('quitAndInstall', (event, arg) => {
+  autoUpdater.quitAndInstall();
+});
+
+ipcMain.on('checkForUpdates', (event, arg) => {
+  autoUpdater.checkForUpdates();
+});
