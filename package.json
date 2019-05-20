@@ -1,11 +1,14 @@
 {
   "name": "electronautoupdate",
-  "version": "0.1.10",
-  "author": "Fran Cruz",
-  "homepage": "./",
+  "version": "0.1.11",
   "description": "An example of an autoupdating electron app",
   "repository": "https://github.com/franjcruz/electron-autoupdate-example",
   "main": "electron.js",
+  "author": {
+    "name": "Fran Cruz",
+    "email": "fran@kryptotech.io",
+    "url": "http://kryptotech.io/"
+  },
   "dependencies": {
     "electron-updater": "^2.18.2"
   },
